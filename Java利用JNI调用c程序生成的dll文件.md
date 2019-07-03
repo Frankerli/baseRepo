@@ -8,6 +8,7 @@ JNI(Java Native Interface,Java本地接口)
 ## 2具体流程
 ### 2.1编写Java文件
 安装32位jdk，以及32位的eclipse（这是考虑到VC++6.0只能编译生成32位的dll文件），打开eclipse，新建工程prj_javaCallC，接着建立类com.xd.javaCallC.test.Simple1，内容如下：
+```Java
 package com.xd.javaCallC.test;
 /**
  * Java调用C代码测试
@@ -21,7 +22,7 @@ public class Simple1 {
 	 */
 	public native void add();
 }
-
+```
 ### 2.2利用Java文件生成.h文件
 若使用Eclipse，那么需将编译好的class文件放置在同Java源文件相同的目录下，使用myeclipse则不需要。接下来在doc命令窗口进入到Java文件所在目录，比如：
 
