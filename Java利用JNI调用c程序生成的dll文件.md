@@ -49,6 +49,7 @@ C代码完成之后，进行编译，F7编译工程发现缺少jni.h这个头文
 Dll文件编译成功之后，需要配置环境变量Path，将dll文件所在目录的路径配置到Path环境变量中，比如：H:\计算机语言\c语言\C语言程序\C语言--试验--程序\javaCallCOfCTest1\Debug，接下来重启eclipse，让eclipse在启动的时候重新读取Path。
 ### 2.6 Java代码加载库文件并进行测试
 至此只剩下用Java代码调用C代码了，在Java代码中添加静态块加载C动态库文件，
+```Java
 package com.xd.javaCallC.test;
 /**
  * Java调用C代码测试
@@ -77,7 +78,7 @@ public class Simple1 {
 		simple.add();
 	}
 }
-
+```
 ## 3 web中使用JNI
 在web应用中，在系统环境变量Path中配置是不管用的，会报 java.lang.UnsatisfiedLinkError: no javaCallCOfCTest2 in java.library.path
 这个异常，解决办法是先用
@@ -115,7 +116,9 @@ native method 调用 DeleteLocalRef() 释放某个 JNI Local Reference 时�
 在使用JNI调用C(C++)时会遇到类型转换的问题，先将本人所遇到的类型转换记录下来:
 ### 5.1 jobjectArray（JNI中的对象类型的数组） jstring（JNI中的字符串）
 Java中传进来的是String[],比如：
+```Java
 public native void jniCallCEntranceFourteen(String strs[]);
+```
 那么，在JNI生成的头文件中是这样的，
 
 将其放在.cpp文件中是这样的，
@@ -129,9 +132,12 @@ jstring obja=(jstring)env->GetObjectArrayElement(array,i);
 首先得明白，C语言中的定义字符串的一种方式为char * str=”abcd”;
 用JNI的API
 env->GetStringUTFChars(jstring,NULL);例如：
-char* chars=(char*)env->GetStringUTFChars(obja,NULL);
+```C
 //将jstring类型转换成char类型输出（char * chars代表C语言中的字符串）
+char* chars=(char*)env->GetStringUTFChars(obja,NULL);
+```
 一个详细代码：
+```C
 JNIEXPORT void JNICALL Java_com_xtu_predict_base_JNICallCBase_jniCallCEntranceFourteen
   (JNIEnv * env, jobject obj, jobjectArray array)
 {
@@ -155,4 +161,4 @@ JNIEXPORT void JNICALL Java_com_xtu_predict_base_JNICallCBase_jniCallCEntranceFo
 	 main_test(3,argvA);
 	 printf("%s\n","xiaolin");
 }
-
+```
