@@ -1,4 +1,4 @@
-# Java利用JNI调用c程序生成的dll文件
+# Java利用JNI调用c程序生成的dll文件（暂未上传完整）
 
 关键字：JAVA JNI  java调用C  VC++6.0编译C代码成32位dll文件 
 
